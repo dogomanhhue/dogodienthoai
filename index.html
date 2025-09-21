@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đồ gỗ Mạnh Huệ</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #111; color: #FFD700; }
+    header { background: #000; padding: 15px; text-align: center; }
+    header h1 { margin: 0; font-size: 1.8em; color: #FFD700; }
+    nav { background: #222; display: flex; justify-content: center; padding: 10px; flex-wrap: wrap; }
+    nav a { color: #FFD700; margin: 5px 15px; text-decoration: none; font-weight: bold; }
+    nav a:hover { text-decoration: underline; }
+    .banner { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://via.placeholder.com/1200x400?text=Do+Go+Manh+Hue'); background-size: cover; background-position: center; text-align: center; color: #FFD700; padding: 60px 20px; }
+    .banner h2 { font-size: 2em; margin-bottom: 10px; }
+    .products { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; padding: 20px; }
+    .product { background: #222; border: 1px solid #FFD700; border-radius: 10px; text-align: center; overflow: hidden; cursor: pointer; transition: transform 0.3s; }
+    .product:hover { transform: scale(1.03); }
+    .product img { width: 100%; height: auto; }
+    .product h3 { margin: 8px 0; font-size: 1em; }
+    footer { background: #000; color: #FFD700; text-align: center; padding: 15px; }
+    /* Modal */
+    .modal { display: none; position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); overflow-y: auto; }
+    .modal-content { background: #222; margin: 50px auto; padding: 20px; border-radius: 10px; max-width: 600px; color: #FFD700; }
+    .modal-content h3 { margin-top: 0; }
+    .modal-content img { width: 100%; margin: 5px 0; border-radius: 8px; }
+    .close { float: right; font-size: 1.5em; cursor: pointer; color: #fff; }
+    @media (max-width: 600px) {
+      .banner h2 { font-size: 1.5em; }
+      nav { flex-direction: column; }
+      nav a { margin: 8px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Đồ gỗ Mạnh Huệ</h1>
+  </header>
+  <nav>
+    <a href="#">Trang chủ</a>
+    <a href="#sanpham">Sản phẩm</a>
+    <a href="#lienhe">Liên hệ</a>
+  </nav>
+  <section class="banner">
+    <h2>Sang trọng - Chuyên nghiệp - Đẳng cấp</h2>
+    <p>Chuyên cung cấp đồ gỗ nội thất cao cấp</p>
+  </section>
+  <section id="sanpham" class="products">
+    <!-- 20 sản phẩm -->
+    <script>
+      const products = [];
+      for (let i = 1; i <= 20; i++) {
+        products.push({
+          id: i,
+          name: "Sản phẩm " + i,
+          desc: "Mẫu sản phẩm " + i + " thiết kế sang trọng, chất liệu gỗ cao cấp, bền đẹp theo thời gian.",
+          images: [
+            "https://via.placeholder.com/600x400?text=SP" + i + "-1",
+            "https://via.placeholder.com/600x400?text=SP" + i + "-2",
+            "https://via.placeholder.com/600x400?text=SP" + i + "-3",
+            "https://via.placeholder.com/600x400?text=SP" + i + "-4"
+          ]
+        });
+      }
+      document.write(products.map(p => `
+        <div class="product" onclick="openModal(${p.id})">
+          <img src="${p.images[0]}" alt="${p.name}">
+          <h3>${p.name}</h3>
+        </div>
+      `).join(""));
+    </script>
+  </section>
+  <section id="lienhe" style="padding:20px; text-align:center;">
+    <h2>Liên hệ</h2>
+    <p>Hotline: 0123 456 789</p>
+    <p>Zalo: DoGoManhHue | Facebook: fb.com/dogomanhhue</p>
+    <p>
+      <a href="https://forms.gle/your-form-id" target="_blank" style="color:#FFD700; font-weight:bold;">Điền Form Liên hệ</a>
+    </p>
+  </section>
+  <footer>
+    <p>&copy; 2025 Đồ gỗ Mạnh Huệ. All rights reserved.</p>
+  </footer>
+
+  <!-- Modal sản phẩm -->
+  <div id="productModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
+      <div id="modalImages"></div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(id) {
+      const product = products.find(p => p.id === id);
+      document.getElementById("modalTitle").innerText = product.name;
+      document.getElementById("modalDesc").innerText = product.desc;
+      document.getElementById("modalImages").innerHTML = product.images.map(img => `<img src="${img}">`).join("");
+      document.getElementById("productModal").style.display = "block";
+    }
+    function closeModal() {
+      document.getElementById("productModal").style.display = "none";
+    }
+    window.onclick = function(event) {
+      const modal = document.getElementById("productModal");
+      if (event.target === modal) { closeModal(); }
+    }
+  </script>
+</body>
+</html>
